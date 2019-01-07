@@ -186,8 +186,8 @@ window.onload = function () {
         function callUpdate() { updatePos(xStart, yStart, screen); }
         function calcDist() {
             const time = getTime();
-            var xSpeed = xPos - screen.left - xStart;
-            var ySpeed = yPos - screen.top - yStart;
+            var xSpeed = (xPos - screen.left - xStart) * 2;
+            var ySpeed = (yPos - screen.top - yStart) * 2;
 
             const circle = new flyingCircle(time, xStart, yStart, xSpeed, ySpeed);
             animSet.add(circle);

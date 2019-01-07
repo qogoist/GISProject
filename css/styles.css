@@ -21,15 +21,21 @@ body {
 
 .menu {
     background-color: #262626;
-    padding: 0;
     flex: 0 1 auto;
     color: white;
+    text-align: center;
 }
 
 .menu h1 {
     padding: 16px;
     margin: 0;
     color: white;
+}
+
+.menu h2 {
+    padding: 10px 16px 10px 16px;
+    margin: 0;
+    font-size: 1.25em;
 }
 
 .menu a {
@@ -42,6 +48,20 @@ body {
 .menu a:hover {
     background-color: lightgray;
     color: black;
+}
+
+.slider {
+    padding: 16px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: space-between;
+    justify-content: center;
+}
+
+.slider label {
+    margin-left: 5px;
 }
 
 .content {
@@ -60,5 +80,9 @@ body {
 @media only screen and (min-width: 768px) {
     /* For desktop: */
     .wrapper {flex-direction: row;}
-    .menu {width: 25%;}
+    .menu {
+        text-align: left;
+        flex: 0 0 220px;
+    }
+    .slider {justify-content: flex-start;}
 }
