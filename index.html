@@ -13,13 +13,18 @@
 <body>
     <div class="wrapper">
         <div class="menu">
-            <h1>Menu</h1>
-            Uptime: <input type="range" id="tIn" min="1" max= "60"/>
-            <span id="tOut"></span><br>
-            Duration: <input type="range" id="dIn" min="1" max= "5000"/>
-            <span id="dOut"></span><br>
-            Volume: <input type="range" id="vIn" min="0" max= "100"/>
-            <span id="vOut"></span><br>
+            <h1>Settings</h1>
+            <label for="uptime">Uptime: </label><br>
+            <input type="range" id="tIn" name="uptime" min="1" max= "60" step="1" value="10"/>
+            <label for="uptime" id="tOut"></label><br>
+
+            <label for="duration">Duration: </label><br>
+            <input type="range" id="dIn" name="duration" min="0.1" max= "5" step="0.1" value="1"/>
+            <label for="duration" id="dOut"></label><br>
+
+            <label for="volume">Volume: </label><br>
+            <input type="range" id="vIn" name="volume" min="1" max= "50" step="1" value="10"/>
+            <label for="volume" id="vOut"></label><br>
         </div>
         <div class="content">
                 <canvas id="canvas"></canvas>

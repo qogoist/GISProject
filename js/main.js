@@ -230,18 +230,18 @@ window.onload = function () {
                 },
                 this.duration
             );
-            setTimeout(function () { oscillator.stop(); }, this.duration * 2);
+            setTimeout(function () { oscillator.stop(); }, this.duration + 100);
         }
     }
 
     function show() {
         maxAge = document.getElementById("tIn").value;
-        toneDuration = document.getElementById("dIn").value;
+        toneDuration = document.getElementById("dIn").value * 1000;
         volume = document.getElementById("vIn").value / 100;
 
         document.getElementById("tOut").innerHTML = maxAge + " s";
-        document.getElementById("dOut").innerHTML = toneDuration + " ms";
-        document.getElementById("vOut").innerHTML = volume;
+        document.getElementById("dOut").innerHTML = toneDuration / 1000 + " s";
+        document.getElementById("vOut").innerHTML = volume * 100;
     }
 
     function updatePos(xStart, yStart, screen) {
