@@ -18,9 +18,7 @@ window.onload = function () {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
     canvas.addEventListener("mousedown", startBall);
-    //document.addEventListener("mousemove", updatePos);
-    //canvas.addEventListener("mousedown", addToSet, true);
-    //canvas.addEventListener("touchstart", addToSet, { passive: false, capture: true });
+    canvas.addEventListener("touchstart", startBall, { passive: false, capture: true });
     document.getElementById("tIn").addEventListener("input", show);
     document.getElementById("dIn").addEventListener("input", show);
     document.getElementById("vIn").addEventListener("input", show);
@@ -178,6 +176,7 @@ window.onload = function () {
     }*/
 
     function startBall(event) {
+        event.preventDefault();
         const screen = event.target.getBoundingClientRect();
         var xStart = event.clientX - screen.left;
         var yStart = event.clientY - screen.top;
