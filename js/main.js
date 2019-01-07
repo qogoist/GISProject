@@ -1,8 +1,19 @@
 window.onload = function () {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
+    //Audio Stuff - create a merger then connect that into a compressor to remove clipping
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContext()
+    const merger = audioCtx.createChannelMerger();
+    const compressor = audioCtx.createDynamicsCompressor();
+    compressor.threshold.setValueAtTime(-50, audioCtx.currentTime);
+    compressor.knee.setValueAtTime(40, audioCtx.currentTime);
+    compressor.ratio.setValueAtTime(12, audioCtx.currentTime);
+    compressor.attack.setValueAtTime(0, audioCtx.currentTime);
+    compressor.release.setValueAtTime(0.25, audioCtx.currentTime);
+    merger.connect(compressor);
+    compressor.connect(audioCtx.destination);
+
 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
@@ -206,7 +217,8 @@ window.onload = function () {
             oscillator.type = "sine";
 
             oscillator.connect(gainNode);
-            gainNode.connect(audioCtx.destination);
+            gainNode.connect(merger, 0, 1);
+            gainNode.connect(merger, 0, 0);
 
             oscillator.start();
 
@@ -218,6 +230,7 @@ window.onload = function () {
                 },
                 this.duration
             );
+            setTimeout(function () { oscillator.stop(); }, this.duration * 2);
         }
     }
 
