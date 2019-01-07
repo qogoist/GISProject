@@ -72,9 +72,17 @@ window.onload = function () {
 
     function animateCircles() {
         const time = getTime();
-        ctx.fillStyle = "#000";
+        ctx.fillStyle = "#000000";
         ctx.globalAlpha = 0.1;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = "#ffffff";
+        ctx.moveTo(canvas.width/2, 0);
+        ctx.lineTo(canvas.width/2, canvas.height);
+        ctx.stroke();
+        ctx.moveTo(0, canvas.height/2);
+        ctx.lineTo(canvas.width, canvas.height/2);
+        ctx.stroke();
 
         const array = Array.from(animSet);
         for (let i = 0; i < array.length; i++) {
@@ -91,7 +99,7 @@ window.onload = function () {
 
 
     function addToSet(event) {
-        event.preventDefault();
+        //event.preventDefault(); //to prevent default handling of touch events
         const time = getTime();
         const rect = event.target.getBoundingClientRect();
         var x;
