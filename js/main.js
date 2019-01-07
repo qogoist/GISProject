@@ -178,11 +178,48 @@ window.onload = function () {
     function startBall(event) {
         event.preventDefault();
         const screen = event.target.getBoundingClientRect();
-        var xStart = event.clientX - screen.left;
-        var yStart = event.clientY - screen.top;
+        var xStart;
+        var yStart;
+
+        if (event.type == "mousedown") {
+            xStart = event.clientX - screen.left;
+            yStart = event.clientY - screen.top;
+
+            canvas.addEventListener("mousemove", callUpdate);
+            canvas.addEventListener("mouseup", calcDist);
+            canvas.addEventListener("mouseleave", calcDist);
+        } else if (event.type == "touchstart") {
+            switch (event.touches.length) {
+                case 1:
+                    var touch = event.touches[0]
+                    xStart = touch.clientX - screen.left;
+                    yStart = touch.clientY - screen.top;
+                    canvas.addEventListener("touchmove", callUpdate);
+                    canvas.addEventListener("touchend", calcDist);
+                    break;
+                //case 2: handle_two_touches(e); break;
+                //case 3: handle_three_touches(e); break;
+                default: console.log("Not supported"); break;
+            }
+        }
+
+        function callUpdate(event) {
+            if (event.type == "mousemove") {
+                xPos = event.pageX;
+                yPos = event.pageY;
+            } else if (event.type == "touchmove") [
+                xPos = touch.pageX;
+                yPos = touch.pageY;
+            ]
 
 
-        function callUpdate() { updatePos(xStart, yStart, screen); }
+            ctx.strokeStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(xStart, yStart);
+            ctx.lineTo(xPos - screen.left, yPos - screen.top);
+            ctx.stroke();
+        }
+
         function calcDist() {
             const time = getTime();
             var xSpeed = (xPos - screen.left - xStart) * 2;
@@ -193,11 +230,9 @@ window.onload = function () {
             canvas.removeEventListener("mousemove", callUpdate);
             canvas.removeEventListener("mouseup", calcDist);
             canvas.removeEventListener("mouseleave", calcDist);
+            canvas.removeEventListener("touchmove", callUpdate);
+            canvas.removeEventListener("touchend", calcDist);
         }
-
-        canvas.addEventListener("mousemove", callUpdate);
-        canvas.addEventListener("mouseup", calcDist);
-        canvas.addEventListener("mouseleave", calcDist);
     }
 
     class Tone {
@@ -241,18 +276,6 @@ window.onload = function () {
         document.getElementById("tOut").innerHTML = maxAge + " s";
         document.getElementById("dOut").innerHTML = toneDuration / 1000 + " s";
         document.getElementById("vOut").innerHTML = volume * 100;
-    }
-
-    function updatePos(xStart, yStart, screen) {
-        xPos = event.pageX
-        yPos = event.pageY
-        //console.log(xPos + ", " + yPos);
-
-        ctx.strokeStyle = "#ffffff";
-        ctx.beginPath();
-        ctx.moveTo(xStart, yStart);
-        ctx.lineTo(xPos - screen.left, yPos - screen.top);
-        ctx.stroke();
     }
 
     function getRandomSpeed() {
