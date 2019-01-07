@@ -207,10 +207,10 @@ window.onload = function () {
             if (event.type == "mousemove") {
                 xPos = event.pageX;
                 yPos = event.pageY;
-            } else if (event.type == "touchmove") [
+            } else if (event.type == "touchmove") {
                 xPos = touch.pageX;
                 yPos = touch.pageY;
-            ]
+            }
 
 
             ctx.strokeStyle = "#ffffff";
