@@ -23,6 +23,7 @@ body {
     background-color: #262626;
     padding: 0;
     flex: 0 1 auto;
+    color: white;
 }
 
 .menu h1 {
