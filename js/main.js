@@ -208,6 +208,7 @@ window.onload = function () {
                 xPos = event.pageX;
                 yPos = event.pageY;
             } else if (event.type == "touchmove") {
+                var touch = event.touches[0];
                 xPos = touch.pageX;
                 yPos = touch.pageY;
             }
