@@ -22,6 +22,7 @@ window.onload = function () {
     document.getElementById("tIn").addEventListener("input", show);
     document.getElementById("dIn").addEventListener("input", show);
     document.getElementById("vIn").addEventListener("input", show);
+    document.addEventListener("click", startAudio);
 
     var animSet = new Set();
     var maxAge;
@@ -298,5 +299,12 @@ window.onload = function () {
         canvas.width = rect.width;
         canvas.height = rect.height;
         console.log(canvas.width + ", " + canvas.height);
+    }
+
+    function startAudio(){
+        audioCtx.resume().then(() => {
+            console.log("Audio started");
+            document.removeEventListener("click", startAudio);
+        })
     }
 }
