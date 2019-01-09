@@ -14,15 +14,21 @@ window.onload = function () {
     merger.connect(compressor);
     compressor.connect(audioCtx.destination);
 
-
     resizeCanvas();
+
     window.addEventListener("resize", resizeCanvas);
-    canvas.addEventListener("mousedown", startBall);
-    canvas.addEventListener("touchstart", startBall, { passive: false, capture: true });
+    document.addEventListener("click", startAudio);
+
+    canvas.addEventListener("mousedown", addToSet);
+    canvas.addEventListener("touchstart", addToSet, { passive: false, capture: true });
+
     document.getElementById("tIn").addEventListener("input", show);
     document.getElementById("dIn").addEventListener("input", show);
     document.getElementById("vIn").addEventListener("input", show);
-    document.addEventListener("click", startAudio);
+    document.getElementById("reset").addEventListener("click", function () { animSet.clear(); });
+    document.getElementById("random").addEventListener("click", toggleMode);
+    document.getElementById("collapse").addEventListener("click", toggleMenu);
+
 
     var animSet = new Set();
     var maxAge;
@@ -30,6 +36,8 @@ window.onload = function () {
     var volume;
     var xPos;
     var yPos;
+    var random = false;
+
     show();
     animateCircles();
 
@@ -42,7 +50,7 @@ window.onload = function () {
             this.y = y;
             this.xSpeed = xSpeed;
             this.ySpeed = ySpeed;
-            this.radius =  10 + volume * 100;
+            this.radius = 10 + volume * 100;
             this.colour = getRandomColour();
             this.maxAge = maxAge;
             this.toneDuration = toneDuration;
@@ -158,8 +166,7 @@ window.onload = function () {
         requestAnimationFrame(animateCircles);
     }
 
-    // OLD addToSet() function with random speeds - DEPRECIATED
-    /*function addToSet(event) {
+    function addToSetRandom(event) {
         //event.preventDefault(); //to prevent default handling of touch events
         const time = getTime();
         const rect = event.target.getBoundingClientRect();
@@ -172,11 +179,11 @@ window.onload = function () {
             x = event.clientX - rect.left;
             y = event.clientY - rect.top;
         }
-        const circle = new flyingCircle(time, x, y);
+        const circle = new flyingCircle(time, x, y, getRandomSpeed(), getRandomSpeed());
         animSet.add(circle);
-    }*/
+    }
 
-    function startBall(event) {
+    function addToSet(event) {
         event.preventDefault();
         const screen = event.target.getBoundingClientRect();
         var xStart;
@@ -280,8 +287,37 @@ window.onload = function () {
         document.getElementById("vOut").innerHTML = volume * 100;
     }
 
+    function toggleMode() {
+        if (random) {
+            canvas.removeEventListener("mousedown", addToSetRandom);
+            canvas.removeEventListener("touchstart", addToSetRandom, { passive: false, capture: true });
+            canvas.addEventListener("mousedown", addToSet);
+            canvas.addEventListener("touchstart", addToSet, { passive: false, capture: true });
+            document.getElementById("random").innerHTML = "Manual";
+            random = !random;
+        } else {
+            canvas.removeEventListener("mousedown", addToSet);
+            canvas.removeEventListener("touchstart", addToSet, { passive: false, capture: true });
+            canvas.addEventListener("mousedown", addToSetRandom);
+            canvas.addEventListener("touchstart", addToSetRandom, { passive: false, capture: true });
+            document.getElementById("random").innerHTML = "Random";
+            random = !random;
+        }
+    }
+
+    function toggleMenu(){
+        document.getElementById("collapse").classList.toggle("change");
+        document.getElementById("menuInner").classList.toggle("inactive");
+        document.getElementById("menuInner").classList.toggle("active");
+        resizeCanvas();
+    }
+
     function getRandomSpeed() {
-        return 1000 * Math.random();
+        var x  = Math.floor((Math.random() * 10) + 1);
+        if (x % 2 == 0){
+            return -1 * Math.floor((Math.random() * 1000) + 1)
+        }
+        return Math.floor((Math.random() * 1000) + 1);
     }
     function getRandomColour() {
         var r = Math.floor(255 * Math.random());
@@ -301,7 +337,7 @@ window.onload = function () {
         console.log(canvas.width + ", " + canvas.height);
     }
 
-    function startAudio(){
+    function startAudio() {
         audioCtx.resume().then(() => {
             console.log("Audio started");
             document.removeEventListener("click", startAudio);
