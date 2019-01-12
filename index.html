@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/modal.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -39,8 +41,9 @@
                 </div>
 
                 <div class="btnGroup">
-                    <button id="reset">Reset</button>
-                    <button id="random">Manual</button>
+                    <button id="reset" style="order: 1">Reset</button>
+                    <button id="random" style="order: 2">Manual</button>
+                    <button id="help" style="order: 3">Help</button>
                 </div>
             </div>
         </div>
@@ -48,4 +51,21 @@
             <canvas id="canvas"></canvas>
         </div>
     </div>
+
+    <!-- Instructions Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Instructions</h2>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to bouncy balls of many notes!<br/>In this app you can spawn balls that will make a sound depending on which of the eight edges of the window it hits.</p>
+                <p>To spawn a ball, click on the screen and drag the mouse in the direction you want it to go. The further you drag your mouse, the faster the ball will go.</p>
+            </div>
+            <div class="modal-footer">
+                <br/>
+            </div>
+        </div>
+    </div> 
 </body>
