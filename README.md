@@ -1,5 +1,6 @@
 Not much to see here.
 
+<!---
 #Color Scheme:
 
 #V1
@@ -15,3 +16,4 @@ Not much to see here.
 #Light Sea Green #2D93AD
 #Anti-Flash White: #F3EFF5
 #Green (RYB): #72B01D
+-->
